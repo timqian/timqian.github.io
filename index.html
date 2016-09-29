@@ -38,15 +38,19 @@
       <style>
         #menu{display:block;margin:0 auto;}
         a{cursor:pointer;outline:none;}
-        .menu-trigger{fill:#70b7fd;/*pointer-events:auto;*/stroke:#111;stroke-width:2;}
+        .menu-trigger{fill:#70b7fd;/*pointer-events:auto;*/stroke:#70b7fd;stroke-width:15;}
         /*.menu-trigger:hover,.menu-trigger:focus{cursor:pointer;}*/
         symbol{overflow:visible;}
-        #item-1 .sector{transition:all .1s linear;fill:#4484ce;stroke:#111;}
-        #item-2 .sector{transition:all .1s linear;fill:#fff;stroke:#111;}
-        #item-3 .sector{transition:all .1s linear;fill:#d9d9d9;stroke:#111;}
-        #item-4 .sector{transition:all .1s linear;fill:#47e88f;stroke:#111;}
-        #item-5 .sector{transition:all .1s linear;fill:#f19f4d;stroke:#111;}
-        .item:hover .sector,.item:focus .sector{fill:#eee;}
+        #item-1 .sector{transition:all .1s linear;fill:#4484ce;stroke:#70b7fd;}
+        #item-2 .sector{transition:all .1s linear;fill:#fff;stroke:#70b7fd;}
+        #item-3 .sector{transition:all .1s linear;fill:#d9d9d9;stroke:#70b7fd;}
+        #item-4 .sector{transition:all .1s linear;fill:#47e88f;stroke:#70b7fd;}
+        #item-5 .sector{transition:all .1s linear;fill:#f19f4d;stroke:#70b7fd;}
+        #item-1:hover .sector{fill:#70b7aa;}
+        #item-2:hover .sector{fill:#70b7aa;}
+        #item-3:hover .sector{fill:#70b7aa;}
+        #item-4:hover .sector{fill:#70b7aa;}
+        #item-5:hover .sector{fill:#70b7aa;}
       </style>
 
       <g id="symbolsContainer">
@@ -58,11 +62,11 @@
       </g>
 
       <g id="itemsContainer">
-        <a class="item" id="item-1" role="link" tabindex="0" xlink:href="https://www.zhihu.com/people/timqian" xlink:title="zhihu" xlink:target="_parent" transform="matrix(1,0,0,1,0,0)" data-svg-origin="250 250" style=""><path fill="none" stroke="#111" stroke-width="2" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-1" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
-        <a class="item" id="item-2" role="link" tabindex="0" xlink:href="https://www.v2ex.com/member/timqian" xlink:title="v2ex" xlink:target="_parent" transform="matrix(0.30901,-0.95105,0.95105,0.30901,-65.01837766752521,410.5098804800515)" data-svg-origin="250 250" style=""><path fill="none" stroke="#111" stroke-width="2" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-2" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
-        <a class="item" id="item-3" role="link" tabindex="0" xlink:href="https://github.com/timqian" xlink:title="github" xlink:target="_parent" transform="matrix(-0.80901,-0.58778,0.58778,-0.80901,305.3079355206185,599.2005616668552)" data-svg-origin="250 250" style=""><path fill="none" stroke="#111" stroke-width="2" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-3" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
-        <a class="item" id="item-4" role="link" tabindex="0" xlink:href="https://github.com/timqian/my-notes/issues" xlink:title="blog" xlink:target="_parent" transform="matrix(-0.80901,0.58778,-0.58778,-0.80901,599.2005616668552,305.30793552061857)" data-svg-origin="250 250" style=""><path fill="none" stroke="#111" stroke-width="2" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-4" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
-        <a class="item" id="item-5" role="link" tabindex="0" xlink:href="http://stackoverflow.com/users/4674834/tim-qian" xlink:title="stackoverflow" xlink:target="_parent" transform="matrix(0.30901,0.95105,-0.95105,0.30901,410.5098804800516,-65.01837766752521)" data-svg-origin="250 250" style=""><path fill="none" stroke="#111" stroke-width="2" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-5" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
+        <a class="item" id="item-1" role="link" tabindex="0" xlink:href="https://www.zhihu.com/people/timqian" xlink:title="zhihu" xlink:target="_parent" transform="matrix(1,0,0,1,0,0)" data-svg-origin="250 250" style=""><path fill="none" stroke="#70b7fd" stroke-width="15" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-1" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
+        <a class="item" id="item-2" role="link" tabindex="0" xlink:href="https://www.v2ex.com/member/timqian" xlink:title="v2ex" xlink:target="_parent" transform="matrix(0.30901,-0.95105,0.95105,0.30901,-65.01837766752521,410.5098804800515)" data-svg-origin="250 250" style=""><path fill="none" stroke="#70b7fd" stroke-width="15" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-2" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
+        <a class="item" id="item-3" role="link" tabindex="0" xlink:href="https://github.com/timqian" xlink:title="github" xlink:target="_parent" transform="matrix(-0.80901,-0.58778,0.58778,-0.80901,305.3079355206185,599.2005616668552)" data-svg-origin="250 250" style=""><path fill="none" stroke="#70b7fd" stroke-width="15" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-3" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
+        <a class="item" id="item-4" role="link" tabindex="0" xlink:href="https://github.com/timqian/my-notes/issues" xlink:title="blog" xlink:target="_parent" transform="matrix(-0.80901,0.58778,-0.58778,-0.80901,599.2005616668552,305.30793552061857)" data-svg-origin="250 250" style=""><path fill="none" stroke="#70b7fd" stroke-width="15" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-4" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
+        <a class="item" id="item-5" role="link" tabindex="0" xlink:href="http://stackoverflow.com/users/4674834/tim-qian" xlink:title="stackoverflow" xlink:target="_parent" transform="matrix(0.30901,0.95105,-0.95105,0.30901,410.5098804800516,-65.01837766752521)" data-svg-origin="250 250" style=""><path fill="none" stroke="#70b7fd" stroke-width="15" class="sector" d="M250,250 l250,0 A250,250 0 0,0 327.25424859373686,12.235870926211618 z"></path><use xlink:href="#icon-5" width="53" height="53" x="352.9427185058594" y="129.45436096191406" transform="rotate(54 379.4427185058594 155.95436096191406)"></use></a>
       </g>
 
       <g id="trigger" class="trigger menu-trigger" role="button">
@@ -73,12 +77,11 @@
       <defs>
         <pattern id="image" x="0%" y="0%" height="100%" width="100%"
                 viewBox="0 0 512 512">
-          <image x="0%" y="0%" width="530" height="530" xlink:href="./me.jpg"></image>
+          <image x="0%" y="0%" width="512" height="512" xlink:href="./me.png"></image>
         </pattern>
       </defs>
 
     </svg>
-
-
+    <h2 style="position: fixed; bottom:0;left:0;">Welcome ~</h2>
   </body>
 </html>
