@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="基于密度泛函理论(DFT)，使用matlab求解原子状态 使用自洽场方法求解 Kohn-Sham 方程  一. DFT简述（使用Atomic units）密度泛函理论主要由 Kohn 和沈吕九在半个世纪之前创造。用于求解多电子体系基态性质，其主要思想是这样的： 首先：假设一组波函数 $${\psi_i(\vec x)}$$ 描述了电子们的状态 然后：由 $${\psi_i(\vec x)}$$ 导">
+<meta name="keywords" content="physics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)">
+<meta property="og:url" content="https://timqian.com/2015/03/12/dft-matlab/index.html">
+<meta property="og:site_name" content="timqian">
+<meta property="og:description" content="基于密度泛函理论(DFT)，使用matlab求解原子状态 使用自洽场方法求解 Kohn-Sham 方程  一. DFT简述（使用Atomic units）密度泛函理论主要由 Kohn 和沈吕九在半个世纪之前创造。用于求解多电子体系基态性质，其主要思想是这样的： 首先：假设一组波函数 $${\psi_i(\vec x)}$$ 描述了电子们的状态 然后：由 $${\psi_i(\vec x)}$$ 导">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://timqian.com/public/blogfigure/4electron.png">
+<meta property="og:updated_time" content="2019-01-22T05:48:29.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)">
+<meta name="twitter:description" content="基于密度泛函理论(DFT)，使用matlab求解原子状态 使用自洽场方法求解 Kohn-Sham 方程  一. DFT简述（使用Atomic units）密度泛函理论主要由 Kohn 和沈吕九在半个世纪之前创造。用于求解多电子体系基态性质，其主要思想是这样的： 首先：假设一组波函数 $${\psi_i(\vec x)}$$ 描述了电子们的状态 然后：由 $${\psi_i(\vec x)}$$ 导">
+<meta name="twitter:image" content="https://timqian.com/public/blogfigure/4electron.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2015/05/05/这样赌，一定赢？/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2015/03/04/H-atom-numerical/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://timqian.com/2015/03/12/dft-matlab/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://timqian.com/2015/03/12/dft-matlab/&text=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://timqian.com/2015/03/12/dft-matlab/&is_video=false&description=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)&body=Check out this article: https://timqian.com/2015/03/12/dft-matlab/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://timqian.com/2015/03/12/dft-matlab/&name=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于密度泛函理论-DFT-，使用matlab求解原子状态"><span class="toc-number">1.</span> <span class="toc-text">基于密度泛函理论(DFT)，使用matlab求解原子状态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-DFT简述（使用Atomic-units）"><span class="toc-number">1.1.</span> <span class="toc-text">一. DFT简述（使用Atomic units）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-求解-Kohn-Sham-方程的自洽场-self-consistent-field-method-SCF-算法"><span class="toc-number">1.2.</span> <span class="toc-text">二. 求解 Kohn-Sham 方程的自洽场(self-consistent field method SCF)算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-算法的-Matlab-实现"><span class="toc-number">1.3.</span> <span class="toc-text">三. 算法的 Matlab 实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果"><span class="toc-number">1.4.</span> <span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来"><span class="toc-number">1.5.</span> <span class="toc-text">接下来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料："><span class="toc-number">1.6.</span> <span class="toc-text">参考资料：</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">timqian</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2015-03-11T16:00:00.000Z" itemprop="datePublished">2015-03-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/physics/">physics</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="基于密度泛函理论-DFT-，使用matlab求解原子状态"><a href="#基于密度泛函理论-DFT-，使用matlab求解原子状态" class="headerlink" title="基于密度泛函理论(DFT)，使用matlab求解原子状态"></a>基于密度泛函理论(DFT)，使用matlab求解原子状态</h1><ul>
+<li>使用自洽场方法求解 Kohn-Sham 方程</li>
+</ul>
+<h2 id="一-DFT简述（使用Atomic-units）"><a href="#一-DFT简述（使用Atomic-units）" class="headerlink" title="一. DFT简述（使用Atomic units）"></a>一. DFT简述（使用Atomic units）</h2><p>密度泛函理论主要由 Kohn 和沈吕九在半个世纪之前创造。用于求解多电子体系基态性质，其主要思想是这样的：</p>
+<p><strong>首先</strong>：假设一组波函数 $${\psi_i(\vec x)}$$ 描述了电子们的状态</p>
+<p><strong>然后</strong>：由 $${\psi_i(\vec x)}$$ 导出体系能量的表达式(包含电子动能，库伦能等)：</p>
+<ol>
+<li>电子动能：$$ T_{el} = -\frac{1}{2} \sum_{i=1}^{n}  \int \psi_i^*(\vec x) \nabla^2 \psi_i(\vec x) d^3x $$</li>
+<li>电子与原子之间相互作用能： $$ V_{ext} = \int n(\vec x) V_{nuc}(\vec x) d^3x $$</li>
+<li>电子受其他电子的库伦能：$$V_H = \frac{1}{2} \int \phi(\vec x) n(\vec x) d^3x $$，其中$$\phi(\vec x)$$ 为电子电荷密度形成的库伦式，可以通过求解 Poisson 方程（$$ \nabla^2 \phi = - 4 \pi n$$）得到 </li>
+<li>对库伦能的修正（交换能）：$$E_{x} = \int f_x(n(\vec x)) dV  $$</li>
+</ol>
+<p><em>注</em>：<br>其中：$$n(\vec x) = \sum_i  \psi_i^* \psi_i  $$ 为电子密度；<br>对于交换能$$E_{x} $$，有各种近似方法，这里使用最简单的局域密度近似。具体介绍可以在<a href="http://en.wikipedia.org/wiki/Local-density_approximation" target="_blank" rel="noopener">这里找到</a>。</p>
+<blockquote>
+<p>寻找更好的交换能函数，是凝聚态中一个十分重要的研究课题。</p>
+</blockquote>
+<p>综上，可以得到总能量表达式为：</p>
+<p>$$E[{ \psi_i(x)}] = T_{el} + V_{ext} + V_H + E_{x}$$</p>
+<p><strong>最后</strong>：利用变分法，求解使体系能量最小时波函数需要满足的条件，就可以得到著名的Kohn-Sham 方程：</p>
+<p>$$<br>    \left[ -\frac{\hbar^2}{2m} \nabla^2 + V_{ext}(\vec x) + \phi(\vec x) + V_{x}(\vec x) \right] \psi_i(\vec x) = \epsilon_i \psi(\vec x)<br>$$</p>
+<p>其中$$V_{x}$$ 为交换势, 具体表达式见<a href="http://en.wikipedia.org/wiki/Local-density_approximation" target="_blank" rel="noopener">这里（局域密度近似）</a></p>
+<p>令人吃惊的是，它与单电子 Schrodinger 方程是如此的相似。不同之处只是在于，由于电子之间相互作用，Hamiltonian 中的势能项包含了电子密度。这使得K-S方程成为一个非线性方程（哈密顿量与波函数有关），与我们熟知的本征值问题不太一样。接下来，介绍如何编程解这个方程。</p>
+<h2 id="二-求解-Kohn-Sham-方程的自洽场-self-consistent-field-method-SCF-算法"><a href="#二-求解-Kohn-Sham-方程的自洽场-self-consistent-field-method-SCF-算法" class="headerlink" title="二. 求解 Kohn-Sham 方程的自洽场(self-consistent field method SCF)算法"></a>二. 求解 Kohn-Sham 方程的自洽场(self-consistent field method SCF)算法</h2><p><strong>Initialization</strong>: </p>
+<ol>
+<li>确定电子个数（N）</li>
+<li>用外势能近似总势能，即 $$V_{tot} = V_{ext}$$，得到近似Hamiltonian；<br><strong>Iteration</strong>：</li>
+<li>求Hamiltonian最小的 N/2 个本征值，及对应的本征函数 $$\psi_i(\vec x)$$（每个态上占据两个电子）</li>
+<li>由得到的本征函数集 $${\psi_i(\vec x)}$$ 求交换势（$$\phi(\vec x)$$）和库伦势（$$V_{x}(\vec x)$$）</li>
+<li>更新Hamiltonian: $$H = -\frac{\hbar^2}{2m} \nabla^2 + V_{ext}(\vec x) + \phi(\vec x) + V_{x}(\vec x)$$</li>
+<li>判断当前结果是否满足要求，如果满足，就跳出循环</li>
+</ol>
+<h2 id="三-算法的-Matlab-实现"><a href="#三-算法的-Matlab-实现" class="headerlink" title="三. 算法的 Matlab 实现"></a>三. 算法的 Matlab 实现</h2><p>使用条件及近似方式：</p>
+<blockquote>
+<p>只考虑电子成对占据某一能态的原子；<br>使用<a href="http://en.wikipedia.org/wiki/Local-density_approximation" target="_blank" rel="noopener">LDA近似</a>；<br>使用空间离散化的方法求解Hamiltonian的本征值；<br>使用<a href="http://en.wikipedia.org/wiki/Dirichlet_boundary_condition" target="_blank" rel="noopener">Dirichlet边界条件</a>（边界处概率密度为0）；<br>以4个电子为例。</p>
+</blockquote>
+<p>主程序：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%For double occupation</span></span><br><span class="line">N = <span class="number">4</span>;  <span class="comment">% num of enectrons</span></span><br><span class="line">g = <span class="number">50</span>  <span class="comment">% num of lattices</span></span><br><span class="line">g3 = g^<span class="number">3</span>;</span><br><span class="line">p = <span class="built_in">linspace</span>(<span class="number">-5</span>, <span class="number">5</span>, g);         <span class="comment">% one dimensiton space lattice</span></span><br><span class="line">[X, Y, Z] = <span class="built_in">meshgrid</span>(p, p, p);  <span class="comment">% three dimension space lattice</span></span><br><span class="line">h = p(<span class="number">2</span>) - p(<span class="number">1</span>);                <span class="comment">% latice spacing</span></span><br><span class="line">X = X(:); Y = Y(:); Z = Z(:);   <span class="comment">% all elements of arraty as a single column</span></span><br><span class="line">R = <span class="built_in">sqrt</span>(X.^<span class="number">2</span> + Y.^<span class="number">2</span> + Z.^<span class="number">2</span>);   <span class="comment">% distance from the center</span></span><br><span class="line">Vext = -N ./ R;                 <span class="comment">% potential energy(2 protons)</span></span><br><span class="line">e = <span class="built_in">ones</span>(g,<span class="number">1</span>);               </span><br><span class="line">L = spdiags([e <span class="number">-2</span>*e e], <span class="number">-1</span>:<span class="number">1</span>, g, g) / h^<span class="number">2</span>; <span class="comment">% 1D finite difference Laplacian (with 0 boundary condition)</span></span><br><span class="line">I = speye(g);</span><br><span class="line">L3 = kron(kron(L,I), I) + kron(kron(I, L), I) + kron(kron(I, I), L);  <span class="comment">% extend Laplacian to 3 D</span></span><br><span class="line">Vtot = Vext;  <span class="comment">%initial guess</span></span><br><span class="line">ncomp = <span class="built_in">exp</span>(-R.^<span class="number">2</span>/<span class="number">2</span>);  <span class="comment">%compensation charge(for poisson equation)</span></span><br><span class="line">ncomp = -N * ncomp / sum(ncomp) / h^<span class="number">3</span>;</span><br><span class="line">ncomppot = -N./R.*<span class="built_in">erf</span>(R/<span class="built_in">sqrt</span>(<span class="number">2</span>));   <span class="comment">%solution of poisson eq. of compensation charge</span></span><br><span class="line"><span class="comment">%%%%%%%%initial guess for N = 4%%%%%%%%%%%%%%%%%%</span></span><br><span class="line"></span><br><span class="line">E = [ <span class="number">-4</span> <span class="number">-1</span> ];</span><br><span class="line">PSI = [ <span class="built_in">exp</span>(<span class="number">-3.7</span>*R) <span class="built_in">exp</span>(<span class="number">-0.17</span>*R) ];</span><br><span class="line"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span></span><br><span class="line"><span class="keyword">for</span> iter = <span class="number">1</span>:<span class="number">5</span> <span class="comment">%Do the main loop not for ever</span></span><br><span class="line">  H = <span class="number">-0.5</span> * L3 + spdiags(Vtot, <span class="number">0</span>, g3, g3);  <span class="comment">% Hamiltonian of Helium</span></span><br><span class="line">  [PSI, E] = lowestNEigen(H, PSI, E, N, <span class="number">5</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:(N/<span class="number">2</span>)</span><br><span class="line">    PSI(:,<span class="built_in">i</span>) = PSI(:,<span class="built_in">i</span>) / norm(PSI(:,<span class="built_in">i</span>));</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  PSI = PSI / h^(<span class="number">3</span>/<span class="number">2</span>);   <span class="comment">%normalize PSI</span></span><br><span class="line"></span><br><span class="line">  n = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:(N/<span class="number">2</span>) <span class="comment">%calculate density of electron</span></span><br><span class="line">    n = n + <span class="number">2</span>*PSI(:,<span class="built_in">i</span>).^<span class="number">2</span>;  </span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">  Vx = -(<span class="number">3</span>/<span class="built_in">pi</span>)^(<span class="number">1</span>/<span class="number">3</span>)*n.^(<span class="number">1</span>/<span class="number">3</span>);  <span class="comment">%exchange potantial (LDA)</span></span><br><span class="line">  Vh = cgs(L3, <span class="number">-4</span>*<span class="built_in">pi</span>*(n + ncomp), <span class="number">1e-7</span>, <span class="number">400</span>) - ncomppot; <span class="comment">%Hartree potantial(solution of poisson eq.: L3 Vh = -4*pi*n)</span></span><br><span class="line">  Vtot = Vx + Vh + Vext;  <span class="comment">%total potantial</span></span><br><span class="line">  </span><br><span class="line">  T = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:(N/<span class="number">2</span>)  <span class="comment">%calculate Kinetic energy</span></span><br><span class="line">    T = T + <span class="number">2</span>*PSI(:,<span class="built_in">i</span>)'*(<span class="number">-0.5</span>*L3)*PSI(:,<span class="built_in">i</span>) * h^<span class="number">3</span>;  <span class="comment">%Kinetic enerty(expactation value of Kinetic energy oprator)</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  Eext = sum(n.*Vext) * h^<span class="number">3</span>;  <span class="comment">%external energy</span></span><br><span class="line">  Eh = <span class="number">0.5</span> * sum(n.*Vh) * h^<span class="number">3</span>;  <span class="comment">%hartree energy</span></span><br><span class="line">  Ex = sum(n.*Vx * (<span class="number">3</span>/<span class="number">4</span>)) * h^<span class="number">3</span>;   <span class="comment">%How come the 3/4????????????????</span></span><br><span class="line">  Etot = T + Eext + Eh + Ex;</span><br><span class="line">  more off;   <span class="comment">%see the disp  in the loop, but why?</span></span><br><span class="line">  E</span><br><span class="line"><span class="comment">%  disp(['Kinetic energy ' num2str(T,5) ]);</span></span><br><span class="line"><span class="comment">%  disp(['Exchange energy ' num2str(Ex,5) ]);</span></span><br><span class="line"><span class="comment">%  disp(['External energy ' num2str(Eext,5) ]);</span></span><br><span class="line"><span class="comment">%  disp(['Potential energy ' num2str(Eh,5) ]);</span></span><br><span class="line"> <span class="built_in">disp</span>([<span class="string">'Total energy'</span> num2str(Etot,<span class="number">5</span>) ]);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">%scatter3(X(1:10:g3),Y(1:10:g3),Z(1:10:g3),n(1:10:g3)*1000);</span></span><br><span class="line">scatter3(X,Y,Z,n*4);  //show electron density</span><br></pre></td></tr></table></figure>
+<p>用Davidson method 求解本征值和本征向量：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">%  Usage: Get lowest eigenvalue and cooresponding Evetor by Davidson's method</span></span><br><span class="line"><span class="comment">%  H: discrete Hamiltonian</span></span><br><span class="line"><span class="comment">%  PSI, E： initial guess of eigenvectors and eigenvalue</span></span><br><span class="line"><span class="comment">%  N: number of eigen pair needed</span></span><br><span class="line"><span class="comment">%  iter: iteration number</span></span><br><span class="line"><span class="comment">%</span></span><br><span class="line"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[PSI, E]</span> = <span class="title">lowestNEigen</span><span class="params">(H, PSI, E, N, iter)</span></span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:iter  <span class="comment">%"for loop": for faster convergent</span></span><br><span class="line">  RR = H*PSI - PSI*<span class="built_in">diag</span>(E);  <span class="comment">%All the Residual vectors at once</span></span><br><span class="line">  PSIe = [ PSI RR ];  <span class="comment">%Subsbace</span></span><br><span class="line">  HH = PSIe' * H * PSIe;  <span class="comment">%For transform subspace to a space inwhich H is diagnolized</span></span><br><span class="line">  SS = PSIe' * PSIe;  <span class="comment">%For transform subspace to a space inwhich H is diagnolized</span></span><br><span class="line">  HH = HH + HH';</span><br><span class="line">  SS = SS + SS';  <span class="comment">%Ensure they are Hermition matrix, so that the eigen value will return in order      </span></span><br><span class="line">  [U, E] = eig(HH,SS);<span class="comment">%For transform subspace to a space inwhich H is diagnolized</span></span><br><span class="line">  E = <span class="built_in">diag</span>(E);  <span class="comment">%Diagnal Matix to vector</span></span><br><span class="line">  PSIe = PSIe * U;</span><br><span class="line">  <span class="comment">%%SIe' * H * PSIe</span></span><br><span class="line">  PSI = PSI(:,<span class="number">1</span>:(N/<span class="number">2</span>));</span><br><span class="line">  E = E(<span class="number">1</span>:(N/<span class="number">2</span>)); <span class="comment">%Pick lowest N/2 eigen vectors and values</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>Total energy: -10.793</p>
+<p>电子密度分布图：<img src="\public\blogfigure\4electron.png" alt="电子密度"></p>
+<h2 id="接下来"><a href="#接下来" class="headerlink" title="接下来"></a>接下来</h2><p>误差较大，如何升级？</p>
+<p>如何在 DFT 中考虑空间角动量，自旋角动量，由此研究其磁性？</p>
+<h2 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h2><p><a href="https://www.youtube.com/watch?v=bW44gCulrvI" target="_blank" rel="noopener">1h DFT code in matlab</a></p>
+<p><a href="http://en.wikipedia.org/wiki/Kronecker_sum_of_discrete_Laplacians" target="_blank" rel="noopener">Laplace 算子的离散化方法及离散空间中的分离变量法</a></p>
+<p><a href="http://web.mit.edu/bolin/www/Project-Report-18.335J.pdf" target="_blank" rel="noopener">快速求解矩阵最小（或最大）本征值本征向量的Davidson method</a></p>
+<p><a href="http://en.wikipedia.org/wiki/Poisson&#39;s_equation#Potential_of_a_Gaussian_charge_density" target="_blank" rel="noopener">Gaussian compensation charge</a></p>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基于密度泛函理论-DFT-，使用matlab求解原子状态"><span class="toc-number">1.</span> <span class="toc-text">基于密度泛函理论(DFT)，使用matlab求解原子状态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-DFT简述（使用Atomic-units）"><span class="toc-number">1.1.</span> <span class="toc-text">一. DFT简述（使用Atomic units）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-求解-Kohn-Sham-方程的自洽场-self-consistent-field-method-SCF-算法"><span class="toc-number">1.2.</span> <span class="toc-text">二. 求解 Kohn-Sham 方程的自洽场(self-consistent field method SCF)算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-算法的-Matlab-实现"><span class="toc-number">1.3.</span> <span class="toc-text">三. 算法的 Matlab 实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果"><span class="toc-number">1.4.</span> <span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接下来"><span class="toc-number">1.5.</span> <span class="toc-text">接下来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料："><span class="toc-number">1.6.</span> <span class="toc-text">参考资料：</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://timqian.com/2015/03/12/dft-matlab/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://timqian.com/2015/03/12/dft-matlab/&text=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://timqian.com/2015/03/12/dft-matlab/&is_video=false&description=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)&body=Check out this article: https://timqian.com/2015/03/12/dft-matlab/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://timqian.com/2015/03/12/dft-matlab/&title=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://timqian.com/2015/03/12/dft-matlab/&name=从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 timqian
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'timqian';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

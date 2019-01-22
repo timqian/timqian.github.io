@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="好不容易理解了什么是二次量子化，在此记录。理解本文的基础：  普通量子力学 slater行列式构造多费米子波函数空间      What and Why What is second quantization二次量子化是一种数学技巧。建立在量子力学基本原理之上。  Why second quantize使用未二次量子化的波函数和哈密顿量处理有相互作用的多体问题十分麻烦。所以想出了一种方法方便处理">
+<meta name="keywords" content="physics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决多体问题的二次量子化方法（专注费米子)">
+<meta property="og:url" content="https://timqian.com/2014/12/02/second_quantization/index.html">
+<meta property="og:site_name" content="timqian">
+<meta property="og:description" content="好不容易理解了什么是二次量子化，在此记录。理解本文的基础：  普通量子力学 slater行列式构造多费米子波函数空间      What and Why What is second quantization二次量子化是一种数学技巧。建立在量子力学基本原理之上。  Why second quantize使用未二次量子化的波函数和哈密顿量处理有相互作用的多体问题十分麻烦。所以想出了一种方法方便处理">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-22T05:19:05.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决多体问题的二次量子化方法（专注费米子)">
+<meta name="twitter:description" content="好不容易理解了什么是二次量子化，在此记录。理解本文的基础：  普通量子力学 slater行列式构造多费米子波函数空间      What and Why What is second quantization二次量子化是一种数学技巧。建立在量子力学基本原理之上。  Why second quantize使用未二次量子化的波函数和哈密顿量处理有相互作用的多体问题十分麻烦。所以想出了一种方法方便处理">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>解决多体问题的二次量子化方法（专注费米子)</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2015/01/24/atom_magnetic_moment_perturbation/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2014/03/05/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://timqian.com/2014/12/02/second_quantization/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://timqian.com/2014/12/02/second_quantization/&text=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://timqian.com/2014/12/02/second_quantization/&is_video=false&description=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=解决多体问题的二次量子化方法（专注费米子)&body=Check out this article: https://timqian.com/2014/12/02/second_quantization/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://timqian.com/2014/12/02/second_quantization/&name=解决多体问题的二次量子化方法（专注费米子)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#What-and-Why"><span class="toc-number">1.</span> <span class="toc-text">What and Why</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#必要的定义以及多体系统态空间的建立"><span class="toc-number">2.</span> <span class="toc-text">必要的定义以及多体系统态空间的建立</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一：定义真空态"><span class="toc-number">2.1.</span> <span class="toc-text">一：定义真空态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二：以某力学量为参考，定义产生，湮灭算符"><span class="toc-number">2.2.</span> <span class="toc-text">二：以某力学量为参考，定义产生，湮灭算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三：定义产生湮灭算符的反对易关系："><span class="toc-number">2.3.</span> <span class="toc-text">三：定义产生湮灭算符的反对易关系：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四：定义n粒子系统的基矢。"><span class="toc-number">2.4.</span> <span class="toc-text">四：定义n粒子系统的基矢。</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二次量子化形式的哈密顿量"><span class="toc-number">3.</span> <span class="toc-text">二次量子化形式的哈密顿量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原先的哈密顿量（带相互作用）"><span class="toc-number">3.1.</span> <span class="toc-text">原先的哈密顿量（带相互作用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二次量子化形式的哈密顿量-1"><span class="toc-number">3.2.</span> <span class="toc-text">二次量子化形式的哈密顿量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#验证两种量子化方法等价"><span class="toc-number">4.</span> <span class="toc-text">验证两种量子化方法等价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#物理体系：两个相互作用的电子："><span class="toc-number">4.1.</span> <span class="toc-text">物理体系：两个相互作用的电子：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一次量子化形式的哈密顿量"><span class="toc-number">4.1.1.</span> <span class="toc-text">一次量子化形式的哈密顿量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一次量子化形式的态矢量"><span class="toc-number">4.1.2.</span> <span class="toc-text">一次量子化形式的态矢量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一次量子化形式的哈密顿量在该态下的期望"><span class="toc-number">4.1.3.</span> <span class="toc-text">一次量子化形式的哈密顿量在该态下的期望</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次量子化形式的哈密顿量-2"><span class="toc-number">4.1.4.</span> <span class="toc-text">二次量子化形式的哈密顿量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次量子化形式的态矢量"><span class="toc-number">4.1.5.</span> <span class="toc-text">二次量子化形式的态矢量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次量子化形式的哈密顿量在该态下的期望"><span class="toc-number">4.1.6.</span> <span class="toc-text">二次量子化形式的哈密顿量在该态下的期望</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        解决多体问题的二次量子化方法（专注费米子)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">timqian</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2014-12-01T16:00:00.000Z" itemprop="datePublished">2014-12-02</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/physics/">physics</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>好不容易理解了什么是二次量子化，在此记录。理解本文的基础：</p>
+<ul>
+<li>普通量子力学</li>
+<li>slater行列式构造多费米子波函数空间</li>
+</ul>
+</blockquote>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<h1 id="What-and-Why"><a href="#What-and-Why" class="headerlink" title="What and Why"></a>What and Why</h1><ul>
+<li><p>What is second quantization<br>二次量子化是一种数学技巧。建立在量子力学基本原理之上。</p>
+</li>
+<li><p>Why second quantize<br>使用未二次量子化的波函数和哈密顿量处理有相互作用的多体问题十分麻烦。所以想出了一种方法方便处理。</p>
+</li>
+</ul>
+<h1 id="必要的定义以及多体系统态空间的建立"><a href="#必要的定义以及多体系统态空间的建立" class="headerlink" title="必要的定义以及多体系统态空间的建立"></a>必要的定义以及多体系统态空间的建立</h1><p>天下没有免费的午餐，为了要使用二次量子化工具，必须要先定义一些量。这些定义的目的是建立另一种形式的多体波函数以及哈密顿量。要始终记住的是：二次量子化的态和力学量算符与一次量子化的态和算符是等价的。</p>
+<h2 id="一：定义真空态"><a href="#一：定义真空态" class="headerlink" title="一：定义真空态"></a>一：定义真空态</h2><p> $$|0&gt;$$  真空态满足：<br> \begin{equation}<br> &lt;0|0&gt; = 1<br> \end{equation}</p>
+<h2 id="二：以某力学量为参考，定义产生，湮灭算符"><a href="#二：以某力学量为参考，定义产生，湮灭算符" class="headerlink" title="二：以某力学量为参考，定义产生，湮灭算符"></a>二：以某力学量为参考，定义产生，湮灭算符</h2><p>$$c_i^+, c_i$$用来产生湮灭粒子。</p>
+<p>比如：选取动量算符为参考，那么，产生算符作用到真空态上（$$c_i^+|0&gt;$$）产生一个处于动量算符第i个本征态上的粒子。<br>性质：</p>
+<p>$$c_i^+|0&gt; = |0…1…0&gt;  (例如：代表动量第i个本征态上占据一个电子)$$</p>
+<p>$$c_i^+|0…1…0&gt; = 0$$</p>
+<p>$$c_i|0…1…0&gt; = |0&gt;$$</p>
+<p>$$c_i|0&gt; = 0$$</p>
+<h2 id="三：定义产生湮灭算符的反对易关系："><a href="#三：定义产生湮灭算符的反对易关系：" class="headerlink" title="三：定义产生湮灭算符的反对易关系："></a>三：定义产生湮灭算符的反对易关系：</h2><p>$${c_i, c_j} = 0       for any i, j$$ </p>
+<p>$${c_i^+, c_j^+} = 0        for any i, j$$</p>
+<p>$${c_i^+, c_j} = \delta_{i,j} $$</p>
+<h2 id="四：定义n粒子系统的基矢。"><a href="#四：定义n粒子系统的基矢。" class="headerlink" title="四：定义n粒子系统的基矢。"></a>四：定义n粒子系统的基矢。</h2><p>例如，在动量表象中：<br>n粒子基态为：$$c_1^+ c_2^+…c_n^+ \left|0\right\rangle$$。代表有n个粒子分别处于动量算符的第n, n-1, …, 1个本征态。</p>
+<p>能量比基态稍高的态：$$ c_1^+ c_2^+ … c^+<em>{n-1} c^+</em>{n+1} \left|0\right\rangle $$。原本处于第n态的粒子激发到n+1态上了。</p>
+<p>通过以上的定义，我们得到了系统的态空间（稍后你会发现，这与slater行列式等价）。</p>
+<h1 id="二次量子化形式的哈密顿量"><a href="#二次量子化形式的哈密顿量" class="headerlink" title="二次量子化形式的哈密顿量"></a>二次量子化形式的哈密顿量</h1><h2 id="原先的哈密顿量（带相互作用）"><a href="#原先的哈密顿量（带相互作用）" class="headerlink" title="原先的哈密顿量（带相互作用）"></a>原先的哈密顿量（带相互作用）</h2><p>$$H = \sum_i H_1(x_i) + \frac{1}{2} \sum_{i \not = j} V_2(x_i - x_j)$$</p>
+<p>其中$$H_1$$ 代表第i个单粒子能量，$$V_2(x_i - x_j)$$ 代表第i个粒子与第j个粒子之间的相互作用势能。</p>
+<h2 id="二次量子化形式的哈密顿量-1"><a href="#二次量子化形式的哈密顿量-1" class="headerlink" title="二次量子化形式的哈密顿量"></a>二次量子化形式的哈密顿量</h2><p>$$H = \sum_i \epsilon_i c_i^+ c_i + \sum_{ijkl}V_{ij:lk} c_i^+ c_j^+c_kc_l$$</p>
+<p>where</p>
+<p>$$\epsilon_i = \int dx u_i^*(x)H_1(x)u_i(x)$$</p>
+<p>and</p>
+<p>$$V_{ij:lk} = \int dx \int dx’ u_i^<em>(x) u_j^</em>(x’) V_2(x-x’) u_k(x’) u_l(x)$$</p>
+<p>$$u_i(x)$$代表某力学量算符（例如动量）的第i个本征函数。<br>可以发现该哈密顿量由三种东西构成：一次量子化形式的算符，算符的本征态以及产生湮灭算符。可以证明这个哈密顿量与原先的哈密顿量是等价的。<br>要证明二者等价，只需证明两个哈密顿量在各自态空间中矩阵元一致。<br>下面验证两种形式哈密顿量的对角元是一致的。</p>
+<h1 id="验证两种量子化方法等价"><a href="#验证两种量子化方法等价" class="headerlink" title="验证两种量子化方法等价"></a>验证两种量子化方法等价</h1><h2 id="物理体系：两个相互作用的电子："><a href="#物理体系：两个相互作用的电子：" class="headerlink" title="物理体系：两个相互作用的电子："></a>物理体系：两个相互作用的电子：</h2><h3 id="一次量子化形式的哈密顿量"><a href="#一次量子化形式的哈密顿量" class="headerlink" title="一次量子化形式的哈密顿量"></a>一次量子化形式的哈密顿量</h3><p>易知，一次量子化形式的哈密顿量为：<br>$$H = -\frac{\hbar^2}{2m} \frac{\partial^2}{\partial x_1 ^2}- \frac{\hbar^2}{2m} \frac{\partial^2}{\partial x_1 ^2} - \frac{e^2}{4\pi \epsilon_0|x_1 - x_2|}$$</p>
+<p>$$x_1, x_2$$ 分别指代粒子1和粒子2。<br>以动量算符的本征态为素材，利用slater行列式可以建立体系的态空间。这里验证基态下两种量子化方法的哈密顿量期望值相等。这就相当于验证了$$H$$在动量空间中矩阵形式的对角元素。<br>设两个费米子，分别处于动量算符的两个本征态：$$\phi_1, \phi_2$$，可以用slater行列式得到体系的一次量子化形式的态。</p>
+<h3 id="一次量子化形式的态矢量"><a href="#一次量子化形式的态矢量" class="headerlink" title="一次量子化形式的态矢量"></a>一次量子化形式的态矢量</h3><p>$$|\psi&gt; = \frac{1}{\sqrt 2}[\phi_1(x_1) \phi_2(x_2) - \phi_1(x_2) \phi_2(x_1)]$$</p>
+<h3 id="一次量子化形式的哈密顿量在该态下的期望"><a href="#一次量子化形式的哈密顿量在该态下的期望" class="headerlink" title="一次量子化形式的哈密顿量在该态下的期望"></a>一次量子化形式的哈密顿量在该态下的期望</h3><p>$$&lt;\psi| H| \psi&gt;$$</p>
+<p>$$ = \frac{1}{2}\int dx_1 dx_2 [\phi_1^<em>(x_1) \phi_2^</em>(x_2) - \phi_1^<em>(x_2) \phi_2^</em>(x_1)] H [\phi_1(x_1) \phi_2(x_2) - \phi_1(x_2) \phi_2(x_1)]$$</p>
+<p>$$= \frac{1}{2}(&lt;\phi_1(x_1)|P_1| \phi_1(x_1)&gt; + &lt;\phi_2(x_1)|P_1| \phi_2(x_1)&gt; + &lt;\phi_1(x_2)|P_2| \phi_1(x_2)&gt; + &lt;\phi_2(x_1)|P_2| \phi_2(x_2)&gt;) + \int dx_1 dx_2 [ |\phi_1(x_1)|^2|\phi_2(x_2)|^2V_2 - \phi_1^<em>(x_1)\phi_2(x_1)\phi_2^</em>(x_2)\phi_1(x_2)V_2]$$</p>
+<p>$$= &lt;\phi_1|P|\phi_1&gt; + &lt;\phi_2|P|\phi_2&gt; + \int dx_1 dx_2 [ |\phi_1(x_1)|^2|\phi_2(x_2)|^2V_2 - \phi_1^<em>(x_1)\phi_2(x_1)\phi_2^</em>(x_2)\phi_1(x_2)V_2]$$</p>
+<h3 id="二次量子化形式的哈密顿量-2"><a href="#二次量子化形式的哈密顿量-2" class="headerlink" title="二次量子化形式的哈密顿量"></a>二次量子化形式的哈密顿量</h3><p>由二次量子化哈密顿量的定义得：</p>
+<p>$$H = &lt;\phi_1|P|\phi_1&gt;c_1^+c_1 + &lt;\phi_2|P|\phi_2&gt;c_2^+c_2  + V_{12:12}c_1^+c_2^+c_2c_1 + V_{12:21}c_1^+c_2^+c_1c_2 $$</p>
+<p>由于当$$c_i^+ $$与$$c_i$$数目不相等时作用到态上结果为0，因此上式有许多项被忽略了。</p>
+<h3 id="二次量子化形式的态矢量"><a href="#二次量子化形式的态矢量" class="headerlink" title="二次量子化形式的态矢量"></a>二次量子化形式的态矢量</h3><p>$$|\psi&gt; = c_1^+ c_2^+|0&gt;$$</p>
+<p>and</p>
+<p>$$&lt;\psi| = &lt;0|c_2c_1$$</p>
+<h3 id="二次量子化形式的哈密顿量在该态下的期望"><a href="#二次量子化形式的哈密顿量在该态下的期望" class="headerlink" title="二次量子化形式的哈密顿量在该态下的期望"></a>二次量子化形式的哈密顿量在该态下的期望</h3><p>$$&lt;\psi|H|\psi&gt; = …$$<br>可以用产生湮灭算符的对易关系来得到，结果与一次量子化一样。你也试一试把。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#What-and-Why"><span class="toc-number">1.</span> <span class="toc-text">What and Why</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#必要的定义以及多体系统态空间的建立"><span class="toc-number">2.</span> <span class="toc-text">必要的定义以及多体系统态空间的建立</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一：定义真空态"><span class="toc-number">2.1.</span> <span class="toc-text">一：定义真空态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二：以某力学量为参考，定义产生，湮灭算符"><span class="toc-number">2.2.</span> <span class="toc-text">二：以某力学量为参考，定义产生，湮灭算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三：定义产生湮灭算符的反对易关系："><span class="toc-number">2.3.</span> <span class="toc-text">三：定义产生湮灭算符的反对易关系：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四：定义n粒子系统的基矢。"><span class="toc-number">2.4.</span> <span class="toc-text">四：定义n粒子系统的基矢。</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二次量子化形式的哈密顿量"><span class="toc-number">3.</span> <span class="toc-text">二次量子化形式的哈密顿量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原先的哈密顿量（带相互作用）"><span class="toc-number">3.1.</span> <span class="toc-text">原先的哈密顿量（带相互作用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二次量子化形式的哈密顿量-1"><span class="toc-number">3.2.</span> <span class="toc-text">二次量子化形式的哈密顿量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#验证两种量子化方法等价"><span class="toc-number">4.</span> <span class="toc-text">验证两种量子化方法等价</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#物理体系：两个相互作用的电子："><span class="toc-number">4.1.</span> <span class="toc-text">物理体系：两个相互作用的电子：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一次量子化形式的哈密顿量"><span class="toc-number">4.1.1.</span> <span class="toc-text">一次量子化形式的哈密顿量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一次量子化形式的态矢量"><span class="toc-number">4.1.2.</span> <span class="toc-text">一次量子化形式的态矢量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一次量子化形式的哈密顿量在该态下的期望"><span class="toc-number">4.1.3.</span> <span class="toc-text">一次量子化形式的哈密顿量在该态下的期望</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次量子化形式的哈密顿量-2"><span class="toc-number">4.1.4.</span> <span class="toc-text">二次量子化形式的哈密顿量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次量子化形式的态矢量"><span class="toc-number">4.1.5.</span> <span class="toc-text">二次量子化形式的态矢量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二次量子化形式的哈密顿量在该态下的期望"><span class="toc-number">4.1.6.</span> <span class="toc-text">二次量子化形式的哈密顿量在该态下的期望</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://timqian.com/2014/12/02/second_quantization/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://timqian.com/2014/12/02/second_quantization/&text=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://timqian.com/2014/12/02/second_quantization/&is_video=false&description=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=解决多体问题的二次量子化方法（专注费米子)&body=Check out this article: https://timqian.com/2014/12/02/second_quantization/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://timqian.com/2014/12/02/second_quantization/&title=解决多体问题的二次量子化方法（专注费米子)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://timqian.com/2014/12/02/second_quantization/&name=解决多体问题的二次量子化方法（专注费米子)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 timqian
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'timqian';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Let’s have a look the code first(They were wrote by Mikael Kuisma in this vedio): 12345678910111213141516g = 40; g3 = g^3;p = linspace(-4, 4, g);         % one dimensiton space lattice[X, Y, Z] = mesh">
+<meta name="keywords" content="physics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solving Hydrogen atom numerically with 14 lines of Matlab code">
+<meta property="og:url" content="https://timqian.com/2015/03/04/H-atom-numerical/index.html">
+<meta property="og:site_name" content="timqian">
+<meta property="og:description" content="Let’s have a look the code first(They were wrote by Mikael Kuisma in this vedio): 12345678910111213141516g = 40; g3 = g^3;p = linspace(-4, 4, g);         % one dimensiton space lattice[X, Y, Z] = mesh">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://timqian.com/public/blogfigure/Hydrogen_lowest.png">
+<meta property="og:updated_time" content="2019-01-22T05:37:19.887Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Solving Hydrogen atom numerically with 14 lines of Matlab code">
+<meta name="twitter:description" content="Let’s have a look the code first(They were wrote by Mikael Kuisma in this vedio): 12345678910111213141516g = 40; g3 = g^3;p = linspace(-4, 4, g);         % one dimensiton space lattice[X, Y, Z] = mesh">
+<meta name="twitter:image" content="https://timqian.com/public/blogfigure/Hydrogen_lowest.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Solving Hydrogen atom numerically with 14 lines of Matlab code</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2015/03/12/dft-matlab/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2015/03/03/near-free-and-tight-binding/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://timqian.com/2015/03/04/H-atom-numerical/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://timqian.com/2015/03/04/H-atom-numerical/&text=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://timqian.com/2015/03/04/H-atom-numerical/&is_video=false&description=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Solving Hydrogen atom numerically with 14 lines of Matlab code&body=Check out this article: https://timqian.com/2015/03/04/H-atom-numerical/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://timqian.com/2015/03/04/H-atom-numerical/&name=Solving Hydrogen atom numerically with 14 lines of Matlab code&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Theory"><span class="toc-number">1.</span> <span class="toc-text">Theory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-explanation"><span class="toc-number">2.</span> <span class="toc-text">Code explanation</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Solving Hydrogen atom numerically with 14 lines of Matlab code
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">timqian</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2015-03-03T16:00:00.000Z" itemprop="datePublished">2015-03-04</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/physics/">physics</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Let’s have a look the code first(They were wrote by Mikael Kuisma in <a href="https://www.youtube.com/watch?v=bW44gCulrvI" target="_blank" rel="noopener">this vedio</a>):</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">g = <span class="number">40</span>; g3 = g^<span class="number">3</span>;</span><br><span class="line">p = <span class="built_in">linspace</span>(<span class="number">-4</span>, <span class="number">4</span>, g);         <span class="comment">% one dimensiton space lattice</span></span><br><span class="line">[X, Y, Z] = <span class="built_in">meshgrid</span>(p, p, p);  <span class="comment">% three dimension space lattice</span></span><br><span class="line">h = p(<span class="number">2</span>) - p(<span class="number">1</span>);                <span class="comment">% latice spacing</span></span><br><span class="line">X = X(:); Y = Y(:); Z = Z(:);   <span class="comment">% all elements of arraty as a single column</span></span><br><span class="line">R = <span class="built_in">sqrt</span>(X.^<span class="number">2</span> + Y.^<span class="number">2</span> + Z.^<span class="number">2</span>);   <span class="comment">% distance from the center</span></span><br><span class="line">Vext = <span class="number">-1</span> ./ R;                 <span class="comment">% potential energy</span></span><br><span class="line">e = <span class="built_in">ones</span>(g,<span class="number">1</span>);               </span><br><span class="line">L = spdiags([e <span class="number">-2</span>*e e], <span class="number">-1</span>:<span class="number">1</span>, g, g) / h^<span class="number">2</span>; <span class="comment">% 1D finite difference Laplacian</span></span><br><span class="line">I = speye(g);</span><br><span class="line">L3 = kron(kron(L,I), I) + kron(kron(I, L), I) + kron(kron(I, I), L);  <span class="comment">% extend Laplacian to 3 D</span></span><br><span class="line">H = <span class="number">-0.5</span> * L3 + spdiags(Vext, <span class="number">0</span>, g3, g3);  <span class="comment">% Hamiltonian of H atom</span></span><br><span class="line">[PSI,E] = eigs(H, <span class="number">1</span>, <span class="string">'sa'</span>);                      <span class="comment">% Smallest eigenvalue of H</span></span><br><span class="line"><span class="comment">%disp(['Total energy for Hydrogen atom' num2str(E*27.21, 5) 'eV']); %display result</span></span><br><span class="line"><span class="comment">%PSI_3 = reshape(PSI, [g,g,g]);</span></span><br><span class="line"><span class="built_in">scatter3</span>(X,Y,Z,PSI.^<span class="number">2</span> *<span class="number">9000</span>);</span><br></pre></td></tr></table></figure>
+<p>These code calculated the  ground state energy of Hydrogen atom(You can run the code online in <a href="http://www.tutorialspoint.com/matlab/try_matlab.php" target="_blank" rel="noopener">this website</a>).</p>
+<p>Result: <img src="/public/blogfigure/Hydrogen_lowest.png" alt="Electron density"></p>
+<p>Energy: 13.321eV</p>
+<h2 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a>Theory</h2><p>The Hamiltonian of electron in the Hydrogen is (in <a href="http://en.wikipedia.org/wiki/Atomic_units" target="_blank" rel="noopener">Atomic units</a>):</p>
+<p>$$<br>H =  -\frac{1}{2} \nabla^2 - \frac{1}{r}<br>$$</p>
+<p>In order to calculate the energy levels and wave functions of Hydrogen, we have to solve the t-independent Schrodinger equation of the electron in a Hydrogen atom is</p>
+<p>$$<br> H \psi_n = E_n \psi_n<br>$$</p>
+<p>Generally speaking, $$H$$ is an Oprator, $$E_n$$ is its eigenvalues and $$\psi_n$$ is the corresponding eigenvactors.<br>In continus space, the Hamiltonian is complicated as it contains second derivatives(the Laplacian: $$\nabla^2$$). </p>
+<p>However, if we discretize the space, the wave function becomes a column vector, and the Hamiltonian can be expresse’d as<br>a matrix. As it is an opration on the vector.<br>In this way, the problem is transformed to “find eigenvactors and eigenvalues of a matrix”. And matlab is an expert about this kind of job.</p>
+<p>In order to get this matrix form of $$H$$, the hard part is to the Laplacian. And <a href="http://en.wikipedia.org/wiki/Kronecker_sum_of_discrete_Laplacians" target="_blank" rel="noopener">this link</a><br>tells you how to get the “discrete Laplacians”.</p>
+<h2 id="Code-explanation"><a href="#Code-explanation" class="headerlink" title="Code explanation"></a>Code explanation</h2><p>Comment by the code owner:</p>
+<pre><code>There is a special trick with the grids. We take a 3d grid with dimensions g times g times g. 
+We flatten the 3d-array to a vector of dimensions 1 x g^3. 
+The hamiltonian operator is a linear mapping in this vector space, 
+thus a g^3 x g^3 array. 
+After we have calculated the wave function, we can reshape it back from vector representation to 3
+    --[Mikael Kuisma](https://www.youtube.com/channel/UCmRLy_j4kXTktxLPY9QtHbw)
+</code></pre><p>List of Matlab functions used in the code.</p>
+<ul>
+<li>y = linspace(x1,x2,N) returns N linearly spaced points.</li>
+<li>[X,Y,Z] = meshgrid(xgv,ygv,zgv) produces three-dimensional coordinate arrays. The output coordinate arrays X, Y, and Z contain copies of the grid vectors xgv, ygv, and zgv respectively. The sizes of the output arrays are determined by the length of the grid vectors. For grid vectors xgv, ygv, and zgv of length M, N, and P respectively, X, Y, and Z will have N rows, M columns, and P pages.</li>
+<li>A = spdiags(B,d,m,n) creates an m-by-n sparse matrix by taking the columns of B and placing them along the diagonals specified by d.</li>
+<li>S = speye(m,n) and S = speye([m n]) form an m-by-n sparse matrix with 1s on the main diagonal.</li>
+<li>K = kron(A,B) returns the Kronecker tensor product of matrices A and B. If A is an m-by-n matrix and B is a p-by-q matrix, then kron(A,B) is an m<em>p-by-n</em>q matrix formed by taking all possible products between the elements of A and the matrix B.</li>
+<li>eigs(A,k,sigma) and eigs(A,B,k,sigma) return k eigenvalues based on sigma, which can take any of the following values… where ‘sa’ means smallest</li>
+<li>disp(X) displays the contents of X without printing the variable name. disp does not display empty variables.</li>
+</ul>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Theory"><span class="toc-number">1.</span> <span class="toc-text">Theory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-explanation"><span class="toc-number">2.</span> <span class="toc-text">Code explanation</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://timqian.com/2015/03/04/H-atom-numerical/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://timqian.com/2015/03/04/H-atom-numerical/&text=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://timqian.com/2015/03/04/H-atom-numerical/&is_video=false&description=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Solving Hydrogen atom numerically with 14 lines of Matlab code&body=Check out this article: https://timqian.com/2015/03/04/H-atom-numerical/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://timqian.com/2015/03/04/H-atom-numerical/&title=Solving Hydrogen atom numerically with 14 lines of Matlab code"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://timqian.com/2015/03/04/H-atom-numerical/&name=Solving Hydrogen atom numerically with 14 lines of Matlab code&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 timqian
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'timqian';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>
