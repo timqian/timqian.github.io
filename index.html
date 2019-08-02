@@ -1,318 +1,171 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="timqian">
-<meta property="og:url" content="https://timqian.com/index.html">
-<meta property="og:site_name" content="timqian">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="timqian">
-    
-    
-        
-          
-              <link rel="shortcut icon" href="/images/favicon.ico">
-          
-        
-        
-          
-            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-          
-        
-        
-          
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-          
-        
-    
-    <!-- title -->
-    <title>timqian</title>
-    <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- persian styles -->
-    
-      <link rel="stylesheet" href="/css/rtl.css">
-    
-    <!-- rss -->
-    
-    
+<html lang="en">
+
+<head>
+  <title>timqian</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" href="./favicon.ico">
+  <link rel="bookmark" href="./favicon.ico">
+  <style>
+    /* cyrillic */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 300;
+      src: local('Rubik Light'), local('Rubik-Light'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7Fqj2mZ8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* hebrew */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 300;
+      src: local('Rubik Light'), local('Rubik-Light'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7Fqj2mf8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 300;
+      src: local('Rubik Light'), local('Rubik-Light'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7Fqj2mT8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 300;
+      src: local('Rubik Light'), local('Rubik-Light'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7Fqj2md8WD07oB-.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* cyrillic */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 500;
+      src: local('Rubik Medium'), local('Rubik-Medium'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7EyjmmZ8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* hebrew */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 500;
+      src: local('Rubik Medium'), local('Rubik-Medium'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7Eyjmmf8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 500;
+      src: local('Rubik Medium'), local('Rubik-Medium'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7EyjmmT8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 500;
+      src: local('Rubik Medium'), local('Rubik-Medium'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7Eyjmmd8WD07oB-.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* cyrillic */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Rubik Bold'), local('Rubik-Bold'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7F6iGmZ8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+    }
+    /* hebrew */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Rubik Bold'), local('Rubik-Bold'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7F6iGmf8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Rubik Bold'), local('Rubik-Bold'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7F6iGmT8WD07oB-98o.woff2) format('woff2');
+      unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Rubik';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Rubik Bold'), local('Rubik-Bold'), url(https://fonts.gstatic.com/s/rubik/v9/iJWHBXyIfDnIV7F6iGmd8WD07oB-.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    body {
+      font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: calc(10px + 0.33vw);
+      -webkit-font-smoothing: antialiased;
+      padding: 5vh 10vw;
+      color: #121314;
+    }
+
+    h1 {
+      font-size: 4.5em;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: 1.6em;
+      font-weight: 300;
+      line-height: 1.4;
+      max-width: 26em;
+    }
+
+    a {
+      text-decoration: none;
+      color: #121314;
+      position: relative;
+    }
+
+    a:after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 70%;
+      left: -0.1em;
+      right: -0.1em;
+      bottom: 0;
+      transition: top 200ms cubic-bezier(0, .8, .13, 1);
+      background-color: #61b24b62;
+    }
+
+    a:hover:after {
+      top: 0%;
+    }
+  </style>
 </head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-    <div class="content index py4">
-        
-          <header id="header">
-  <a href="/">
-  
-    
-      <div id="logo" style="background-image: url(/images/logo.png);"></div>
-    
-  
-    <div id="title">
-      <h1>timqian</h1>
-    </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
-      </li>
-       
-        <li><a href="/">Home</a></li>
-       
-        <li><a href="/about/">About</a></li>
-       
-        <li><a href="/archives/">Writing</a></li>
-       
-        <li><a href="/search/">Search</a></li>
-      
-    </ul>
-  </div>
-</header>
+<body data-gr-c-s-loaded="true">
+  <p style="font-weight:500; font-size:2.2em">
+    Hi, I'm Tim Qian.
+  </p>
 
-        
-        <section id="about">
-  
-  
-    <p>
-      Find me on
-      
-      
-      
-        
-          <a class="icon" target="_blank" href="https://github.com/timqian">
-            <i class="fab fa-github"></i><!--
-      ---></a><!--
-    ---><!--
-    --->, 
-        
-      
-        
-          <a class="icon" target="_blank" href="https://twitter.com/tim_qian">
-            <i class="fab fa-twitter"></i><!--
-      ---></a><!--
-    ---><!--
-    ---> and 
-        
-      
-        
-          <a class="icon" target="_blank" href="mailto:timqian92@qq.com">
-            <i class="fas fa-envelope"></i><!--
-      ---></a><!--
-      ---><!--
-    --->.
-        
-      
-    </p>
-  
-</section>
+  <p>
+    I'm a full stack developer and <a href="https://github.com/timqian">open source activist.</a> I'm currently building transparent products at <a href="https://t9t.io">t9t.io</a>.
+    I also <a href="https://news.ycombinator.com/item?id=20585097">accept freelance works</a>.
+  </p>
+  <p>
+    You can find me on <a href="https://twitter.com/tim_qian">Twitter</a>, <a href="https://github.com/timqian">GitHub</a> or my <a href="https://blog.t9t.io">blog</a>.
+  </p>
 
-<section id="writing">
-  <span class="h1"><a href="/archives">Writing</a></span>
-  
-  <span class="h2">Topics</span>
-  <span class="widget tagcloud">
-    <a href="/tags/physics/" style="font-size: 20px;">physics</a> <a href="/tags/tech/" style="font-size: 15px;">tech</a> <a href="/tags/thoughts/" style="font-size: 10px;">thoughts</a>
-  </span>
-  <span class="h2">Most recent</span>
-  
-  <ul class="post-list">
-    
-    
-      
-    
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2019-01-21T07:24:46.000Z" itemprop="datePublished">2019-01-21</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2019/01/21/why-writing-things-down/">Why writing things down</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2015-05-04T16:00:00.000Z" itemprop="datePublished">2015-05-05</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2015/05/05/这样赌，一定赢？/">这样赌，一定赢？</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2015-03-11T16:00:00.000Z" itemprop="datePublished">2015-03-12</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2015/03/12/dft-matlab/">从哈密顿量出发，理解多电子原子的“轨道模型”和它的磁矩(密度泛函理论)</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2015-03-03T16:00:00.000Z" itemprop="datePublished">2015-03-04</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2015/03/04/H-atom-numerical/">Solving Hydrogen atom numerically with 14 lines of Matlab code</a>
-    
-
-
-</span>
-      </li>
-    
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2015-03-02T16:00:00.000Z" itemprop="datePublished">2015-03-03</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2015/03/03/near-free-and-tight-binding/">近自由电子模型与紧束缚模型--两种近似方式</a>
-    
-
-
-</span>
-      </li>
-    
-  </ul>
-  
-</section>
-
-
-<section id="projects">
-  <span class="h1"><a href="http://github.com/timqian">Projects</a></span>
-  <ul class="project-list">
-    
-      <li class="project-item">
-        <a href="https://cloudfetch.info/">CloudFetch</a>: <p>Never miss interesting updates on your favorite site</p>
-
-      </li>
-    
-      <li class="project-item">
-        <a href="https://github.com/timqian/star-history">Star History</a>: <p>The missing star history graph of github repos</p>
-
-      </li>
-    
-      <li class="project-item">
-        <a href="https://getcryptoo.github.io">Cryptoo</a>: <p>Set up your own bitcoin payment system the easy way(with 4 APIs)</p>
-
-      </li>
-    
-      <li class="project-item">
-        <a href="https://github.com/modelo/gql-generator">gql-genarator</a>: <p>Generate queries from graphql schema, used for writing api test</p>
-
-      </li>
-    
-  </ul>
-</section>
-
-
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy; 2019 timqian
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/search/">Search</a></li>
-        
-      </ul>
-    </nav>
-  </div>
-</footer>
-
-    </div>
-    <!-- styles -->
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
-
-    <!-- jquery -->
-<script src="/lib/jquery/jquery.min.js"></script>
-<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
-<script src="/js/main.js"></script>
-<!-- search -->
-
-<!-- Google Analytics -->
-
-<!-- Baidu Analytics -->
-
-<!-- Disqus Comments -->
-
-    <script type="text/javascript">
-        var disqus_shortname = 'timqian';
-
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
-
-
+  <p>
+    If you like my open source work. Please consider support me by becoming my <a href="https://patreon.com/timqian">patron</a>.
+  </p>
 </body>
+
 </html>
